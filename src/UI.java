@@ -18,6 +18,7 @@ public class UI {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 scanner.nextLine();
+                System.out.println();
                 return choice;
             } else {
                 System.out.println("That's not a valid number. Try again.");
@@ -66,6 +67,7 @@ public class UI {
                     while (true) {
                         System.out.print("Enter email: ");
                         email = scanner.nextLine();
+                        System.out.println();
                         if (!Pattern.matches(emailRegex, email)) {
                             System.out.println("Invalid email format. Please enter a valid email.");
                         } else if(userData.getUser(email) != null) {
@@ -75,6 +77,7 @@ public class UI {
                     while (true) {
                         System.out.print("Create password: ");
                         password = scanner.nextLine();
+                        System.out.println();
                         if (!Pattern.matches(passwordRegex, password)) {
                             System.out.println("Password too easy.");
                         } else break;
@@ -86,6 +89,7 @@ public class UI {
                     while (true) {
                         System.out.print("Enter email: ");
                         email = scanner.nextLine();
+                        System.out.println();
                         if (!Pattern.matches(emailRegex, email)) {
                             System.out.println("Invalid email format. Please enter a valid email.");
                         } else if(userData.getUser(email) == null) {
@@ -94,6 +98,7 @@ public class UI {
                     }
                     System.out.print("Enter password: ");
                     password = scanner.nextLine();
+                    System.out.println();
                     if (userData.login(email, password)) {
                         postLogin(email, scanner);
                     } else {
@@ -130,10 +135,12 @@ public class UI {
                     do {
                         System.out.print("Enter source city: ");
                         source = scanner.nextLine();
+                        System.out.println();
                     } while (!flightDirectionMap.getCities().contains(source));
                     do {
                         System.out.print("Enter destination city: ");
                         destination = scanner.nextLine();
+                        System.out.println();
                     } while (!flightDirectionMap.getCities().contains(destination));
 
                     List<List<Path>> allPaths = routeFinder.findAllPaths(source, destination);
@@ -143,12 +150,10 @@ public class UI {
                         System.out.println("Possible routes: ");
                         printPaths(allPaths);
                         boolean continueWithBooking = allPaths.size()==1;
-                        if (!continueWithBooking) {
+                        while (!continueWithBooking) {
                             System.out.println("1. Sort the choices based on distances");
                             System.out.println("2. Sort the choices based on prices");
                             System.out.println("3. Continue with booking");
-                        }
-                        while (!continueWithBooking) {
                             System.out.print("Enter your choice: ");
                             int routeChoice = inputNumber(scanner);
                             switch (routeChoice) {
@@ -171,7 +176,7 @@ public class UI {
                         while (true) {
                             int routeChoice = 0;
                             if (allPaths.size()>1) {
-                                System.out.print("Insert path number between 1 and " + allPaths.size() + ": ");
+                                System.out.print("Insert route number between 1 and " + allPaths.size() + ": ");
                                 routeChoice = inputNumber(scanner) - 1;
                             }
 
@@ -187,6 +192,7 @@ public class UI {
                                     while (true) {
                                         System.out.print("Enter seat column (A-F): ");
                                         bookCol = Character.toUpperCase(scanner.next().charAt(0));
+                                        System.out.println();
                                         if (currentMiniPath.seatMap.isColumnNotFull(bookCol)) break;
                                         else System.out.println("Column full or not valid.");
                                     }
