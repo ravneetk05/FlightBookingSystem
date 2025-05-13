@@ -251,8 +251,7 @@ public class UI {
                                 ArrayList<Integer> seat = currentUser.bookingSeat.get(cancelChoice);
                                 System.out.println("Cancelled seat " + seat.getLast() + (char)seat.getFirst().intValue() + " for " + path);
                                 System.out.println();
-                                currentUser.recentActions.addAction("Cancelled seat " + seat.getLast() + (char)seat.getFirst().intValue() + " for " + path);
-                                currentUser.recentActions.addAction("Cancelled trip " + path);
+                                currentUser.recentActions.addAction("Cancelled seat " + seat.getLast() + (char)(seat.getFirst()+'A') + " for " + path);
                                 path.seatMap.cancelBooking((char) ('A'+seat.getFirst()), seat.getLast());
                                 currentUser.bookingPath.remove(cancelChoice);
                                 currentUser.bookingSeat.remove(cancelChoice);
