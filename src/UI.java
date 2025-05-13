@@ -204,9 +204,9 @@ public class UI {
                                         else System.out.println("Seat not available.");
                                     }
                                     if (currentMiniPath.seatMap.bookSeat(bookCol, bookRow)) {
-                                        System.out.println("Booked seat " + bookRow + bookCol + " for " + currentMiniPath);
+                                        System.out.println("Booked seat " + (bookRow+1) + bookCol + " for " + currentMiniPath);
                                         System.out.println();
-                                        currentUser.recentActions.addAction("Booked seat " + bookRow + bookCol + " for " + currentMiniPath);
+                                        currentUser.recentActions.addAction("Booked seat " + (bookRow+1) + bookCol + " for " + currentMiniPath);
                                         currentUser.bookingPath.add(currentMiniPath);
                                         ArrayList<Integer> seat = new ArrayList<>();
                                         seat.add(bookCol-'A');
@@ -249,9 +249,9 @@ public class UI {
                             if (cancelChoice>=0 && cancelChoice<=currentUser.bookingPath.size()-1) {
                                 Path path = currentUser.bookingPath.get(cancelChoice);
                                 ArrayList<Integer> seat = currentUser.bookingSeat.get(cancelChoice);
-                                System.out.println("Cancelled seat " + seat.getLast() + (char)(seat.getFirst()+'A') + " for " + path);
+                                System.out.println("Cancelled seat " + (seat.getLast()+1) + (char)(seat.getFirst()+'A') + " for " + path);
                                 System.out.println();
-                                currentUser.recentActions.addAction("Cancelled seat " + seat.getLast() + (char)(seat.getFirst()+'A') + " for " + path);
+                                currentUser.recentActions.addAction("Cancelled seat " + (seat.getLast()+1) + (char)(seat.getFirst()+'A') + " for " + path);
                                 path.seatMap.cancelBooking((char) ('A'+seat.getFirst()), seat.getLast());
                                 currentUser.bookingPath.remove(cancelChoice);
                                 currentUser.bookingSeat.remove(cancelChoice);
