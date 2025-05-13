@@ -204,6 +204,8 @@ public class UI {
                                         else System.out.println("Seat not available.");
                                     }
                                     if (currentMiniPath.seatMap.bookSeat(bookCol, bookRow)) {
+                                        System.out.println("Booked seat " + bookRow + bookCol + " for " + currentMiniPath);
+                                        System.out.println();
                                         currentUser.recentActions.addAction("Booked seat " + bookRow + bookCol + " for " + currentMiniPath);
                                         currentUser.bookingPath.add(currentMiniPath);
                                         ArrayList<Integer> seat = new ArrayList<>();
@@ -223,10 +225,12 @@ public class UI {
                 case 2: // View Booking History
                     if (currentUser.bookingPath.isEmpty()) {
                         System.out.println("No booking history.");
+                        System.out.println();
                     } else {
                         for (Path path : currentUser.bookingPath) {
                             System.out.println(path);
                         }
+                        System.out.println();
                     }
                     break;
 
@@ -245,7 +249,9 @@ public class UI {
                             if (cancelChoice>=0 && cancelChoice<=currentUser.bookingPath.size()-1) {
                                 Path path = currentUser.bookingPath.get(cancelChoice);
                                 ArrayList<Integer> seat = currentUser.bookingSeat.get(cancelChoice);
-                                currentUser.recentActions.addAction("Cancelled seat " + seat.getLast() + seat.getFirst() + " for " + path);
+                                System.out.println("Cancelled seat " + seat.getLast() + (char)seat.getFirst().intValue() + " for " + path);
+                                System.out.println();
+                                currentUser.recentActions.addAction("Cancelled seat " + seat.getLast() + (char)seat.getFirst().intValue() + " for " + path);
                                 currentUser.recentActions.addAction("Cancelled trip " + path);
                                 path.seatMap.cancelBooking((char) ('A'+seat.getFirst()), seat.getLast());
                                 currentUser.bookingPath.remove(cancelChoice);
@@ -260,10 +266,12 @@ public class UI {
 
                 case 4: // View Last 5 Actions
                     currentUser.recentActions.displayRecentActions();
+                    System.out.println();
                     break;
 
                 case 5: // Logout
                     System.out.println("Logged out");
+                    System.out.println();
                     loggedIn = false;
                     break;
 
