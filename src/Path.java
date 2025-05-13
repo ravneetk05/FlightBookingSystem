@@ -5,7 +5,7 @@ public class Path {
     double price;
     SeatAllocator seatMap;
 
-    // Represents path between every 2 places possible to travel
+    // Represents a path between every 2 places possible to travel
     public Path(String from, String to, double distance, double price) {
         this.from = from;
         this.to = to;

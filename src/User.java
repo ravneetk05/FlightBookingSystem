@@ -12,7 +12,7 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.recentActions = new RecentActions(3);
+        this.recentActions = new RecentActions(5);
         this.bookingPath = new ArrayList<>();
         this.bookingSeat = new ArrayList<>();
     }

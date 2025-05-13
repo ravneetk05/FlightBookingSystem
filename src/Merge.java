@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Merge {
+    // Get the total distance of a list of paths
     private static double getTotalDistance(List<Path> path) {
         return path.stream().mapToDouble(e -> e.distance).sum();
     }

@@ -20,7 +20,7 @@ public class RecentActions {
     }
 
     // Display all recent actions
-    public void displayRecentActions() {
+    public void displayRecentActions() { // Pretty print all recent actions
         if (actionQueue.isEmpty()) {
             System.out.println("No recent actions.");
         } else {

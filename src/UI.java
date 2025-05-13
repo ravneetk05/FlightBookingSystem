@@ -8,8 +8,9 @@ public class UI {
     private static final Scanner scanner = new Scanner(System.in);
     private static final DirectionMap flightDirectionMap = new DirectionMap();
     private static final RouteFinder routeFinder = new RouteFinder(flightDirectionMap);
-    static String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    static String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+    static String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"; // Regular expression to validate email format
+    static String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$"; // Regular expression to validate password format
+
 
     // Allows and returns only a valid number from the user's input
     private static int inputNumber(Scanner scanner) {
@@ -17,22 +18,22 @@ public class UI {
         while (true) {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
-                scanner.nextLine();
+                scanner.nextLine(); // Consume the newline character after the number
                 System.out.println();
                 return choice;
             } else {
                 System.out.println("That's not a valid number. Try again.");
-                scanner.next();
+                scanner.next(); // Consume the invalid character(s)
             }
         }
     }
 
 
-    // Method to pretty print a specific path
-    public static void printPaths(List<List<Path>> allPaths) {
+    // Method to pretty print a specific route
+    public static void printRoute(List<List<Path>> route) {
         int routeIndex = 1;
-        for (List<Path> path : allPaths) {
-            System.out.print("["+routeIndex+"] ");
+        for (List<Path> path : route) {
+            System.out.print("Route index: ["+routeIndex+"] ");
             routeIndex++;
             for (int i = 0; i < path.size(); i++) {
                 if (i==0) System.out.print(path.get(i).from);
@@ -58,11 +59,11 @@ public class UI {
             System.out.print("Enter your choice: ");
             int choice = inputNumber(scanner);
 
-            if (choice == 3) {
+            if (choice == 3) { // Exit program
                 scanner.close();
                 return;
             } else {
-                if (choice == 1) {
+                if (choice == 1) { // Register
                     String email, password;
                     while (true) {
                         System.out.print("Enter email: ");
@@ -84,7 +85,7 @@ public class UI {
                     }
                     userData.register(email, password);
                     postLogin(email, scanner);
-                } else if (choice == 2) {
+                } else if (choice == 2) { // Login
                     String email, password;
                     while (true) {
                         System.out.print("Enter email: ");
@@ -99,12 +100,12 @@ public class UI {
                     System.out.print("Enter password: ");
                     password = scanner.nextLine();
                     System.out.println();
-                    if (userData.login(email, password)) {
+                    if (userData.checkLogin(email, password)) {
                         postLogin(email, scanner);
                     } else {
                         System.out.println("Invalid credentials. Try again.");
                     }
-                } else {
+                } else { // Invalid choice
                     System.out.println("Invalid choice. Try again.");
                 }
             }
@@ -114,7 +115,7 @@ public class UI {
 
     // All UI elements to use before login
     public static void postLogin(String email, Scanner scanner) {
-        System.out.println("Welcome !");
+        System.out.println("Welcome!");
 
         boolean loggedIn = true;
         while (loggedIn) {
@@ -122,14 +123,14 @@ public class UI {
             System.out.println("1. Search and Book Best Route");
             System.out.println("2. View Booking History");
             System.out.println("3. Cancel booking");
-            System.out.println("4. View Last 3 Actions");
+            System.out.println("4. View Last 5 Actions");
             System.out.println("5. Logout");
 
             System.out.print("Enter your choice: ");
             int choice = inputNumber(scanner);
 
             switch (choice) {
-                case 1:
+                case 1: // Search and Book Best Route
                     System.out.println("Available Cities: " + flightDirectionMap.getCities());
                     String source, destination;
                     do {
@@ -148,7 +149,7 @@ public class UI {
                         System.out.println("No route found!");
                     } else {
                         System.out.println("Possible routes: ");
-                        printPaths(allPaths);
+                        printRoute(allPaths);
                         boolean continueWithBooking = allPaths.size()==1;
                         while (!continueWithBooking) {
                             System.out.println("1. Sort the choices based on distances");
@@ -159,11 +160,11 @@ public class UI {
                             switch (routeChoice) {
                                 case 1:
                                     allPaths = Merge.distanceMergeSort(allPaths);
-                                    printPaths(allPaths);
+                                    printRoute(allPaths);
                                     break;
                                 case 2:
                                     allPaths = Merge.priceMergeSort(allPaths);
-                                    printPaths(allPaths);
+                                    printRoute(allPaths);
                                     break;
                                 case 3:
                                     continueWithBooking = true;
@@ -219,7 +220,7 @@ public class UI {
                     }
                     break;
 
-                case 2:
+                case 2: // View Booking History
                     if (currentUser.bookingPath.isEmpty()) {
                         System.out.println("No booking history.");
                     } else {
@@ -229,7 +230,7 @@ public class UI {
                     }
                     break;
 
-                case 3:
+                case 3: // Cancel booking
                     if (currentUser.bookingPath.isEmpty()) {
                         System.out.println("No booking history.");
                     } else {
@@ -257,17 +258,17 @@ public class UI {
                     }
                     break;
 
-                case 4:
+                case 4: // View Last 5 Actions
                     currentUser.recentActions.displayRecentActions();
                     break;
 
-                case 5:
+                case 5: // Logout
                     System.out.println("Logged out");
                     loggedIn = false;
                     break;
 
 
-                default:
+                default: // Invalid choice
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
