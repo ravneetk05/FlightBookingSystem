@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 
 public class UserData {
-    private HashMap<String, User> users;
+    private final HashMap<String, User> users;
 
     // Stores all users and their data, also used for registration and login
     public UserData() {

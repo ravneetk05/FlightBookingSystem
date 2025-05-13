@@ -2,8 +2,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class RecentActions {
-    private Queue<String> actionQueue;
-    private int maxSize;
+    private final Queue<String> actionQueue;
+    private final int maxSize;
 
     // Constructor with a specified maximum size for recent searches
     public RecentActions(int maxSize) {

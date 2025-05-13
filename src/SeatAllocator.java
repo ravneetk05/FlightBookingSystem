@@ -2,8 +2,8 @@ import java.util.HashMap;
 
 public class SeatAllocator {
 
-    private boolean[][] seatsEmptyData; // Saves seat data
-    private HashMap<Integer, Integer> columnMetaData; // Saves number of seats per column
+    private final boolean[][] seatsEmptyData; // Saves seat data
+    private final HashMap<Integer, Integer> columnMetaData; // Saves number of seats per column
 
     private static final int ROWS = 9;  // 9 Rows (1-9)
     private static final int COLUMNS = 6; // 6 Columns (A to F)
